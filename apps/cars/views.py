@@ -1,10 +1,11 @@
 from .models import (CarModel)
 from django.forms import model_to_dict
-from .serializers import CarSerializer
+from .filters import car_filtered_queryset
+
 from rest_framework import status
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from .filters import car_filtered_queryset
+from .serializers import CarSerializer
 
 class CarListCreateView(ListCreateAPIView):
     # queryset = CarModel.objects.all()
