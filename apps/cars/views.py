@@ -13,7 +13,14 @@ class CarListCreateView(ListAPIView):
         return car_filtered_queryset(self.request.query_params)
 
 class CarsInAutopark(ListAPIView):
+    # queryset = CarModel.objects.all().filter(autopark_id=1)
     serializer_class = CarSerializer
+    def get_queryset(self):
+        autopark_id = self.kwargs.get('pk', 1)
+        print(autopark_id)
+        queryset = CarModel.objects.all().filter(autopark_id=autopark_id)
+        return queryset
+
 
 
 class CarRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):

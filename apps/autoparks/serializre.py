@@ -3,5 +3,5 @@ from apps.autoparks.models import AutoParkModel
 class AutoParkSerializer(serializers.ModelSerializer):
     class Meta:
         model = AutoParkModel
-        fields = ('id', 'name', 'created_at', 'updated_at', 'cars')
-        read_only_fields = ('cars',)
+        fields = ('id', 'name', 'created_at', 'updated_at', 'cars', 'users')
+        read_only_fields = ('cars', 'users')

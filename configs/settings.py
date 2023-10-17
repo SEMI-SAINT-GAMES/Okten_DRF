@@ -37,6 +37,7 @@ INSTALLED_APPS = [
 #myapps
     'apps.cars',
     'apps.autoparks',
+    'apps.user',
 ]
 
 MIDDLEWARE = [
