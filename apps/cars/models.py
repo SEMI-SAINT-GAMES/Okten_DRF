@@ -1,6 +1,7 @@
 from django.db import models
-
-class CarModel(models.Model):
+from core.models import BaseModel
+from apps.autoparks.models import AutoParkModel
+class CarModel(BaseModel):
     class Meta:
         db_table = 'cars'
     brand = models.CharField(max_length=30)
@@ -8,5 +9,5 @@ class CarModel(models.Model):
     seats = models.IntegerField()
     body_type = models.CharField(max_length=20)
     engine_volume = models.FloatField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    autopark = models.ForeignKey(AutoParkModel, on_delete=models.CASCADE, related_name='cars')
+
