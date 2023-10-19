@@ -1,11 +1,14 @@
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView
 
 from apps.users.models import UserModel
 from apps.users.serializers import UserSerializer
 
 
-class UserCreateView(ListCreateAPIView):
+class UserCreateView(ListAPIView):
     queryset = UserModel.objects.all()
     serializer_class = UserSerializer
+
+class GetUsersView(ListAPIView):
+    pass
 
 
