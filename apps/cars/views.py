@@ -4,6 +4,7 @@ from .models import CarModel
 from .filters import CarFilter
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticated
 from .serializers import CarSerializer
 
 class CarListCreateView(ListAPIView):
@@ -11,8 +12,7 @@ class CarListCreateView(ListAPIView):
     serializer_class = CarSerializer
     pagination_class = PageNumberPagination
     filterset_class = CarFilter
-    # filter_backends = [DjangoFilterBackend]
-    # filterset_fields = ['price', 'seats']
+    permission_classes = (IsAuthenticated,)
 
 
 class CarsInAutopark(ListAPIView):
