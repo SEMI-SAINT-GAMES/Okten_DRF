@@ -1,19 +1,21 @@
-from .models import CarModel
-from django.forms import model_to_dict
-from .filters import car_filtered_queryset
+from django_filters.rest_framework import DjangoFilterBackend as filters, DjangoFilterBackend
 
-from rest_framework import status
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
+from .models import CarModel
+from .filters import CarFilter
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView
 from .serializers import CarSerializer
 
 class CarListCreateView(ListAPIView):
+    queryset = CarModel.objects.all()
     serializer_class = CarSerializer
-    def get_queryset(self):
-        return car_filtered_queryset(self.request.query_params)
+    pagination_class = PageNumberPagination
+    filterset_class = CarFilter
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ['price', 'seats']
+
 
 class CarsInAutopark(ListAPIView):
-    # queryset = CarModel.objects.all().filter(autopark_id=1)
     serializer_class = CarSerializer
     def get_queryset(self):
         autopark_id = self.kwargs.get('pk', 1)

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.generics import ListCreateAPIView, GenericAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
-
+from rest_framework.pagination import PageNumberPagination
 from apps.autoparks.serializre import AutoParkSerializer
 from apps.user.models import UserModel
 from apps.user.serializer import UserSerializer
@@ -11,6 +11,7 @@ from apps.user.serializer import UserSerializer
 class UserListCreateAPIView(ListCreateAPIView):
     queryset = UserModel.objects.all()
     serializer_class = UserSerializer
+    pagination_class = PageNumberPagination
 
 class UserAddAutoparkView(GenericAPIView):
     queryset = UserModel.objects.all()

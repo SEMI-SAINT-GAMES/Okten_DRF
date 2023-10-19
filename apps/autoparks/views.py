@@ -6,11 +6,13 @@ from rest_framework.generics import ListAPIView, GenericAPIView,  RetrieveUpdate
 from apps.autoparks.models import AutoParkModel
 from apps.autoparks.serializre import AutoParkSerializer
 from apps.cars.serializers import CarSerializer
+from rest_framework.pagination import PageNumberPagination
 
 
 class AutoparkListCreateView(ListAPIView):
     queryset = AutoParkModel.objects.all()
     serializer_class = AutoParkSerializer
+    pagination_class = PageNumberPagination
 
 
 

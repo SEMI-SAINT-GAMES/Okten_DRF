@@ -1,63 +1,46 @@
-from django.db.models import QuerySet
-from django.http import QueryDict
-from rest_framework.serializers import ValidationError
+from django_filters import rest_framework as filters
+
 from apps.cars.models import CarModel
 
-def car_filtered_queryset(query:QueryDict)->QuerySet:
-    qs = CarModel.objects.all()
 
-    for k,v in query.items():
-        match k:
-            case 'price_gt':
-                qs = qs.filter(price__gt=v)
-            case 'price_lt':
-                qs = qs.filter(price__lt=v)
-            case 'price_gte':
-                qs = qs.filter(price__gte=v)
-            case 'price_lte':
-                qs = qs.filter(price__lte=v)
-            case 'seats_gt':
-                qs = qs.filter(seats__gt=v)
-            case 'seats_lt':
-                qs = qs.filter(seats__lt=v)
-            case 'seats_gte':
-                qs = qs.filter(seats__gte=v)
-            case 'seats_lte':
-                qs = qs.filter(seats__lte=v)
-            case 'engine_volume':
-                qs = qs.filter(engine_volume__exact=v)
-            case 'body_type_start':
-                qs = qs.filter(body_type__startswith=v)
-            case 'body_type_end':
-                qs = qs.filter(body_type__endswith=v)
-            case 'body_type':
-                qs = qs.filter(body_type__contains=v)
-            case 'brand_start':
-                qs = qs.filter(brand__startswith=v)
-            case 'brand_end':
-                qs = qs.filter(brand__endswith=v)
-            case 'brand':
-                qs = qs.filter(brand__contains=v)
-            case 'order_by_brand':
-                qs = qs.order_by('brand')
-            case '-order_by_brand':
-                qs = qs.order_by('-brand')
-            case 'order_by_price':
-                qs = qs.order_by('price')
-            case '-order_by_price':
-                qs = qs.order_by('-price')
-            case 'order_by_body_type':
-                qs = qs.order_by('body_type')
-            case '-order_by_body_type':
-                qs = qs.order_by('-body_type')
-            case 'order_by_engine_volume':
-                qs = qs.order_by('engine_volume')
-            case '-order_by_engine_volume':
-                qs = qs.order_by('-engine_volume')
-            case 'order_by_seats':
-                qs = qs.order_by('seats')
-            case '-order_by_seats':
-                qs = qs.order_by('-seats')
-            case _:
-                raise ValidationError({'not allowed'})
-    return qs
+class CarFilter(filters.FilterSet):
+    # price_lt = filters.NumberFilter('price', 'lt')
+    # price_gt = filters.NumberFilter('price', 'gt')
+    # price_lte = filters.NumberFilter('price', 'lte')
+    # price_gte = filters.NumberFilter('price', 'gte')
+    # price_range = filters.RangeFilter('price')
+    # seats_lt = filters.NumberFilter('seats', 'lt')
+    # seats_gt = filters.NumberFilter('seats', 'gt')
+    # seats_lte = filters.NumberFilter('seats', 'lte')
+    # seats_gte = filters.NumberFilter('seats', 'gte')
+    # seats_range = filters.RangeFilter('seats')
+    # engine_volume_lt = filters.NumberFilter('engine_volume', 'lt')
+    # engine_volume_gt = filters.NumberFilter('engine_volume', 'gt')
+    # engine_volume_lte = filters.NumberFilter('engine_volume', 'lte')
+    # engine_volume_gte = filters.NumberFilter('engine_volume', 'gte')
+    # engine_volume_range = filters.RangeFilter('engine_volume')
+    # brand_contains = filters.CharFilter('brand', 'icontains')
+    # brand_startswith = filters.CharFilter('brand', 'startswith')
+    # brand_endswith = filters.CharFilter('brand', 'endswith')
+    # body_type_contains = filters.CharFilter('body_type', 'icontains')
+    # body_type_startswith = filters.CharFilter('body_type', 'startswith')
+    # body_type_endswith = filters.CharFilter('body_type', 'endswith')
+    order = filters.OrderingFilter(
+        fields=(
+            'id',
+            'brand',
+            'price',
+            'body_type',
+            'seats',
+            'engine_volume',
+        )
+    )
+    class Meta:
+        model = CarModel
+        fields = {
+            'price': ('gt', 'lt', 'lte', 'gte'),
+            'seats': ('gt', 'lt', 'lte', 'gte'),
+            'engine_volume': ('gt', 'lt', 'lte', 'gte'),
+            'brand': ('contains', 'startswith', 'endswith'),
+            'body_type': ('contains', 'startswith', 'endswith')
+        }
