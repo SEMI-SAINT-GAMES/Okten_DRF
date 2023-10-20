@@ -8,19 +8,13 @@ from apps.users.serializers import UserSerializer
 class UserCreateView(CreateAPIView):
     serializer_class = UserSerializer
 
-
-
-class GetUsersView(GenericAPIView):
+class GetUsersView(ListAPIView):
+    serializer_class = UserSerializer
     permission_classes = (IsAuthenticated,)
-    def get(self, *args, **kwargs):
-        users = UserModel.objects.all()
+
+    def get_queryset(self):
         me = self.request.user
-        serializer = UserSerializer(me)
-        my_email = serializer.data['email']
-        print('data')
-        print(serializer.data['email'])
-        print('me')
-        print(users)
-        return Response({"lll": "kkk"})
+        queryset = UserModel.objects.exclude(id=me.id)
+        return queryset
 
 
