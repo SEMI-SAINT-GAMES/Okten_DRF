@@ -1,5 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend as filters, DjangoFilterBackend
 
+from core.permissions import IsSuperUser
 from .models import CarModel
 from .filters import CarFilter
 from rest_framework.pagination import PageNumberPagination
@@ -12,7 +13,7 @@ class CarListCreateView(ListAPIView):
     serializer_class = CarSerializer
     pagination_class = PageNumberPagination
     filterset_class = CarFilter
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsSuperUser,)
 
 
 class CarsInAutopark(ListAPIView):
