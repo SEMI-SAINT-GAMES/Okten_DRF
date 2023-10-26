@@ -5,7 +5,7 @@ from .models import CarModel
 from .filters import CarFilter
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serializers import CarSerializer, CarAvatarSerializer
 
 
@@ -14,7 +14,7 @@ class CarListCreateView(ListAPIView):
     serializer_class = CarSerializer
     pagination_class = PageNumberPagination
     filterset_class = CarFilter
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
 
 
 class CarsInAutopark(ListAPIView):

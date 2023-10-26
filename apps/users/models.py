@@ -23,7 +23,7 @@ class UserModel(AbstractBaseUser, PermissionsMixin, BaseModel):
     password = models.CharField(max_length=128, validators=[V.RegexValidator(RegEx.USER_PASSWORD.__str__(), RegEx.USER_PASSWORD.error_message())])
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     profile = models.OneToOneField(ProfileModel, on_delete=models.CASCADE, related_name='user', null=True)
 
 
