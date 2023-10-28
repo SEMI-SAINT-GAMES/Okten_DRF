@@ -1,6 +1,6 @@
 from rest_framework import status
 from rest_framework.generics import CreateAPIView, ListAPIView, GenericAPIView, UpdateAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from apps.users.models import UserModel
 from apps.users.serializers import UserSerializer, ProfileAvatarSerializer
@@ -10,7 +10,7 @@ from core.permissions import IsAuthenticatedOrWriteOnly, IsSuperUser
 
 class UserCreateView(CreateAPIView):
     serializer_class = UserSerializer
-    permission_classes = (IsSuperUser,)
+    permission_classes = (AllowAny,)
 
 
 class GetUsersView(ListAPIView):
