@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'apps.cars',
     'apps.autoparks',
     'apps.test_email',
+    'apps.users_requests',
 
 ]
 
