@@ -28,7 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
         fields = (
-            'id', 'email', 'password', 'is_staff', 'is_superuser', 'is_active', 'last_login', 'created_at', 'updated_at', 'is_customer'
+            'id', 'email', 'password', 'is_staff', 'is_superuser', 'is_active', 'last_login', 'created_at', 'updated_at', 'is_customer', 'profile'
         )
         read_only_fields = ('id', 'is_staff', 'is_superuser', 'is_active', 'last_login', 'created_at', 'updated_at' )
         extra_kwargs = {
@@ -36,11 +36,11 @@ class UserSerializer(serializers.ModelSerializer):
                 'write_only': True
             }
         }
-    # @atomic
-    # def create(self, validated_data: dict):
-    #     profile = validated_data.pop('profile')
-    #     profile = ProfileModel.objects.create(**profile)
-    #     user = UserModel.objects.create_user(profile=profile, **validated_data)
-    #     EmailService.register_email(user)
-    #     return user
+    @atomic
+    def create(self, validated_data: dict):
+        profile = validated_data.pop('profile')
+        profile = ProfileModel.objects.create(**profile)
+        user = UserModel.objects.create_user(profile=profile, **validated_data)
+        EmailService.register_email(user)
+        return user
 

@@ -25,7 +25,7 @@ class UserModel(AbstractBaseUser, PermissionsMixin, BaseModel):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
-   # profile = models.OneToOneField(ProfileModel, on_delete=models.CASCADE, related_name='user', null=True, blank=True)
+    profile = models.OneToOneField(ProfileModel, on_delete=models.CASCADE, related_name='user', null=True)
 
 
     USERNAME_FIELD = 'email'
