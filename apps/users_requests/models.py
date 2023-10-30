@@ -9,9 +9,9 @@ from django.core import validators as V
 class PartRequestModel(BaseModel):
     class Meta:
         db_table = 'part_requests'
-    car_brand = models.CharField(max_length=30, validators=[V.RegexValidator(RegEx.BRAND.__str__(), RegEx.BRAND.error_message())])
+    car_brand = models.CharField(max_length=30) #validators=[V.RegexValidator(RegEx.BRAND.__str__(), RegEx.BRAND.error_message())])
     car_model = models.CharField(max_length=30) #validators=[V.RegexValidator(RegEx.BRAND.__str__(), RegEx.BRAND.error_message())])
-    part_name = models.CharField(max_length=30, validators=[V.RegexValidator(RegEx.BRAND.__str__(), RegEx.BRAND.error_message())])
+    part_name = models.CharField(max_length=30)# validators=[V.RegexValidator(RegEx.BRAND.__str__(), RegEx.BRAND.error_message())])
     vin = models.CharField(max_length=20)# validators=[V.RegexValidator(RegEx.VIN.__str__(), RegEx.VIN.error_message())])
     oem = models.CharField(max_length=40) #[V.RegexValidator(RegEx.VIN.__str__(), RegEx.VIN.error_message())])
     about = models.CharField(max_length=10000)

@@ -11,7 +11,7 @@ class ProfileModel(BaseModel):
         db_table = 'profile'
     name = models.CharField(max_length=50, validators=[V.RegexValidator(RegEx.USER_NAME.__str__(), RegEx.USER_NAME.error_message())])
     surname = models.CharField(max_length=50, validators=[V.RegexValidator(RegEx.USER_SURNAME.__str__(), RegEx.USER_SURNAME.error_message())])
-    age = models.IntegerField(null=True)
+    age = models.IntegerField(null=True, blank=True)
     avatar = models.ImageField(upload_to=upload_avatar_for_user, blank=True)
 
 class UserModel(AbstractBaseUser, PermissionsMixin, BaseModel):
@@ -24,7 +24,8 @@ class UserModel(AbstractBaseUser, PermissionsMixin, BaseModel):
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
-    profile = models.OneToOneField(ProfileModel, on_delete=models.CASCADE, related_name='user', null=True)
+    is_customer = models.BooleanField(default=False)
+   # profile = models.OneToOneField(ProfileModel, on_delete=models.CASCADE, related_name='user', null=True, blank=True)
 
 
     USERNAME_FIELD = 'email'

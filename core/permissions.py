@@ -14,3 +14,7 @@ class IsAuthenticatedOrWriteOnly(BasePermission):
         if request.method == 'POST':
             return True
         return bool(request.user)
+
+class IsCustomer(BasePermission):
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_customer)

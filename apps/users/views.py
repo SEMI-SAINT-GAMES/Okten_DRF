@@ -56,6 +56,8 @@ class MakeAdminUserView(GenericAPIView):
         serializer = UserSerializer(user)
         return Response(serializer.data, status.HTTP_200_OK)
 
+
+
 class UserUnblockView(GenericAPIView):
     queryset = UserModel.objects.all()
     permission_classes = (IsSuperUser,)
