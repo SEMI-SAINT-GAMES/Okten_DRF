@@ -9,9 +9,9 @@ from core.models import BaseModel
 class ProfileModel(BaseModel):
     class Meta:
         db_table = 'profile'
-    name = models.CharField(max_length=50, validators=[V.RegexValidator(RegEx.USER_NAME.__str__(), RegEx.USER_NAME.error_message())])
-    surname = models.CharField(max_length=50, validators=[V.RegexValidator(RegEx.USER_SURNAME.__str__(), RegEx.USER_SURNAME.error_message())])
-    age = models.IntegerField(null=True, blank=True)
+    name = models.CharField(max_length=50)#, validators=[V.RegexValidator(RegEx.USER_NAME.__str__(), RegEx.USER_NAME.error_message())])
+    surname = models.CharField(max_length=50)# validators=[V.RegexValidator(RegEx.USER_SURNAME.__str__(), RegEx.USER_SURNAME.error_message())])
+    age = models.IntegerField(null=True, blank=True, default=10)
     avatar = models.ImageField(upload_to=upload_avatar_for_user, blank=True)
 
 class UserModel(AbstractBaseUser, PermissionsMixin, BaseModel):

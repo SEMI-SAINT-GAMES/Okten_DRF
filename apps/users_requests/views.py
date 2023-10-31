@@ -8,7 +8,7 @@ from rest_framework.pagination import PageNumberPagination
 
 class ListCreatePartRequestView(ListCreateAPIView):
      queryset = PartRequestModel.objects.all()
-     permission_classes = (IsAuthenticated,)
+     permission_classes = (IsStaff,)
      serializer_class = PartRequestSerializer
      pagination_class = PageNumberPagination
 
